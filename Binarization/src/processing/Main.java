@@ -31,7 +31,7 @@ public class Main {
        
         ImageReadWrite image = new ImageReadWrite();
         int grn[][] = image.ImageRead("src/image/Lenna.png");
-        image.WriteStretchedImage(grn, hist.first, hist.last, new int[0], "src/image/LennaCutoff.png");
+        image.WriteStretchedImage(grn, hist.first, hist.last, new int[0], "src/image/LennaCutOff.png");
         
         int[] stretchedHist = hist.stretchMap(hist.first, hist.last);
         if(DEBUG==2) display(stretchedHist);
@@ -54,7 +54,7 @@ public class Main {
         int grn[][] = image.ImageRead("src/image/Lenna.png");
         
         Binarization bin = new Binarization();
-        bin.binarize(grn, mean, "src/image/LennaBin"+mean+".png");
+        bin.binarize(grn, mean, "src/image/LennaMeanBin"+mean+".png");
     }    
     /*----------------------------------------------------------------------------------------------
       Program 3.)
