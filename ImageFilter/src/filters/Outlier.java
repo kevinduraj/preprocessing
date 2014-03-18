@@ -1,6 +1,6 @@
-package median;
+package filters;
 
-import imagefilter.ImageReadWrite;
+import main.ImageReadWrite;
 
 public class Outlier {
 

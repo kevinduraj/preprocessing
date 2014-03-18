@@ -1,6 +1,6 @@
-package imagefilter;
-import median.Median;
-import median.Outlier;
+package main;
+import filters.Median;
+import filters.Outlier;
 
 /*--------------------------------------------------------------------------------------------------
     4.) src/image/LennaMedian.png
