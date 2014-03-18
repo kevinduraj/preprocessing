@@ -85,7 +85,7 @@ public class Histogram {
         int[] mapStretch = new int[256];
         
         double increment = (double) 253 / (last - first);    // 1.8540 = 254 / (188-51)     
-        System.out.format("--- Increment = %.4f ---\n", increment);
+        //System.out.format("--- Increment = %.4f ---\n", increment);
         
         for (int oldKey = first; oldKey <= last; oldKey++) {
 

@@ -18,7 +18,6 @@ public class Statistics {
     public Statistics(String filename) {
         this.filename = filename;       
         this.readGreen();
-        this.display();                
     }
     /*--------------------------------------------------------------------------------------------*/
     public int[][] readGreen() {

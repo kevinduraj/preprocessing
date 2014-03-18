@@ -4,7 +4,8 @@ import java.io.IOException;
 
 public class Main {
 
-    public static final int DEBUG = 1;
+    public static final int DEBUG = 2;
+    public static String filename;
     
     /*---------------------------------------------------------------------------------------------
                                           M A I N
@@ -12,7 +13,8 @@ public class Main {
     public static void main(String[] args) throws IOException {        
         CutOffImage1();
         Binarization2();        
-        OtsuBinarization3();            
+        OtsuBinarization3();
+        System.out.println("\n");
     }           
     /*---------------------------------------------------------------------------------------------
     Program 1.)
@@ -22,21 +24,22 @@ public class Main {
     private static void CutOffImage1() {
         
         Histogram hist = new Histogram();
-        int [] mapHist = hist.readHistogram("src/image/Lenna.png");
-        if(DEBUG==2) display(mapHist);
-        
+        int [] mapHist = hist.readHistogram("src/image/Lenna.png");      
         int[] cutoff = hist.setCutoff(mapHist, 10.0); 
-        if(DEBUG==2) display(cutoff);       
-        if(DEBUG==1) hist.displayAll();
        
         ImageReadWrite image = new ImageReadWrite();
         int grn[][] = image.ImageRead("src/image/Lenna.png");
         image.WriteStretchedImage(grn, hist.first, hist.last, new int[0], "src/image/LennaCutOff.png");
         
         int[] stretchedHist = hist.stretchMap(hist.first, hist.last);
-        if(DEBUG==2) display(stretchedHist);
         
-        image.WriteStretchedImage(grn, hist.first, hist.last, stretchedHist, "src/image/LennaStretch.png");     
+        filename = "src/image/LennaStretch.png";
+        image.WriteStretchedImage(grn, hist.first, hist.last, stretchedHist, filename);
+        
+        Statistics stat1 = new Statistics(filename);
+        System.out.println("\n1.) " + filename 
+                  + "\nStretch 10th and 90th percentile - Image Output Mean = " 
+                  + stat1.getMean());
         
     }
     /*----------------------------------------------------------------------------------------------
@@ -48,13 +51,19 @@ public class Main {
         /*------------------- Histogram -------------------------*/
         Statistics stat = new Statistics("src/image/Lenna.png");
         int mean = (int) stat.getMean();        
-        System.out.println("My Mean = " + mean);
         
         ImageReadWrite image = new ImageReadWrite();
         int grn[][] = image.ImageRead("src/image/Lenna.png");
         
+        filename = "src/image/LennaMeanBin"+mean+".png";
         Binarization bin = new Binarization();
-        bin.binarize(grn, mean, "src/image/LennaMeanBin"+mean+".png");
+        bin.binarize(grn, mean,filename);
+        
+        Statistics stat2 = new Statistics(filename);
+        System.out.println("\n2.) " + filename 
+                + "\nBinarization using mean threshold (123) - Image Output Mean = " 
+                + stat2.getMean());        
+        
     }    
     /*----------------------------------------------------------------------------------------------
       Program 3.)
@@ -65,7 +74,12 @@ public class Main {
         
         OtsuBinarize otsu = new OtsuBinarize("src/image/Lenna.png");
         String filename = otsu.run();
-        if(DEBUG==2) System.out.println("Otsu output" + filename);
+        
+        Statistics stat3 = new Statistics(filename);
+        System.out.println("\n3.) " + filename 
+                + "\nBinarization using Otsu optimal threshold algorithm - Image Output Mean = " 
+                + stat3.getMean());              
+        
     }    
     /*---------------------------------------------------------------------------------------------
                              Display Integer Histogram Array
