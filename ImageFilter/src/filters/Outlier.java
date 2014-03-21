@@ -56,7 +56,7 @@ public class Outlier {
         ------------------------------------------------------------------------------------------*/
         double average = Math.abs(sum/9);
         double neighborhood = (sum-image1[i][j]) / 8;
-        int result = image1[i][j] - (int)average;
+        int result =  Math.abs(image1[i][j] - (int)average);
         
         if (result > 50) {
             totalOutliers++;
