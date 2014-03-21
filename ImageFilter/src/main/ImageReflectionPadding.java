@@ -89,7 +89,8 @@ public class ImageReflectionPadding {
                 //---- Top ----//
                 if (i == 0) {
                     int a = i+2;
-                    if(a>9) a=9;
+                    //if(a>9) a=9;
+                    if(a>img.length) a=img.length;
                     img[i][j] = img[a][j];
                     
                 } //---- Left ----//
