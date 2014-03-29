@@ -3,19 +3,18 @@ package processing;
 import java.io.IOException;
 /*--------------------------------------------------------------------------------------------------
 Program Output:
-    1.) src/image/LennaStretch.png
+    1.) src/image/Stretch.png
     Stretch 10th and 90th percentile - Image Output Mean = 133.19990921020508
 
-    2.) src/image/LennaMeanBin123.png
+    2.) src/image/MeanBin123.png
     Binarization using mean threshold (123) - Image Output Mean = 138.29360961914062
 
-    3.) src/image/LennaOtsuBin115.png
+    3.) src/image/OtsuBin115.png
     Binarization using Otsu optimal threshold algorithm - Image Output Mean = 148.3531150817871
 /*------------------------------------------------------------------------------------------------*/
 public class Main {
 
-    public static final int DEBUG = 2;
-    public static String filename;
+    private static final String sInput = "src/image/Lenna.png";
     
     /*---------------------------------------------------------------------------------------------
                                           M A I N
@@ -34,16 +33,16 @@ public class Main {
     private static void CutOffImage1() {
         
         Histogram hist = new Histogram();
-        int [] mapHist = hist.readHistogram("src/image/Lenna.png");      
+        int [] mapHist = hist.readHistogram(sInput);      
         int[] cutoff = hist.setCutoff(mapHist, 10.0); 
        
         ImageReadWrite image = new ImageReadWrite();
-        int grn[][] = image.ImageRead("src/image/Lenna.png");
-        image.WriteStretchedImage(grn, hist.first, hist.last, new int[0], "src/image/LennaCutOff.png");
+        int grn[][] = image.ImageRead(sInput);
+        image.WriteStretchedImage(grn, hist.first, hist.last, new int[0], "src/image/CutOff.png");
         
         int[] stretchedHist = hist.stretchMap(hist.first, hist.last);
         
-        filename = "src/image/LennaStretch.png";
+        String filename = "src/image/Stretch.png";
         image.WriteStretchedImage(grn, hist.first, hist.last, stretchedHist, filename);
         
         Statistics stat1 = new Statistics(filename);
@@ -59,13 +58,13 @@ public class Main {
     private static void Binarization2() {
 
         /*------------------- Histogram -------------------------*/
-        Statistics stat = new Statistics("src/image/Lenna.png");
+        Statistics stat = new Statistics(sInput);
         int mean = (int) stat.getMean();        
         
         ImageReadWrite image = new ImageReadWrite();
-        int grn[][] = image.ImageRead("src/image/Lenna.png");
+        int grn[][] = image.ImageRead(sInput);
         
-        filename = "src/image/LennaMeanBin"+mean+".png";
+        String filename = "src/image/Mean"+mean+".png";
         Binarization bin = new Binarization();
         bin.binarize(grn, mean,filename);
         
@@ -82,7 +81,7 @@ public class Main {
       --------------------------------------------------------------------------------------------*/    
     private static void OtsuBinarization3() throws IOException {
         
-        OtsuBinarize otsu = new OtsuBinarize("src/image/Lenna.png");
+        OtsuBinarize otsu = new OtsuBinarize(sInput);
         String filename = otsu.run();
         
         Statistics stat3 = new Statistics(filename);

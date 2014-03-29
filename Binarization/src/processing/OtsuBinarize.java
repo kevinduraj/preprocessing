@@ -140,7 +140,7 @@ public class OtsuBinarize {
         int red, pixel;
         int threshold = otsuTreshold(original);
         
-        output_file = "src/image/LennaOtsuBin" + threshold + ".png";
+        output_file = "src/image/OtsuBin" + threshold + ".png";
 
         BufferedImage bin = new BufferedImage(original.getWidth(), original.getHeight(), original.getType());
 
