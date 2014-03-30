@@ -19,13 +19,21 @@ public class Main {
         int [] mapHist = percentile.readHistogram(sInput);      
         int[] cutoff = percentile.setCutoff(mapHist, 10.0); 
        
-        int grn[][] = ImageRead(sInput);
+        int[][] green = ImageRead(sInput);
         
-        percentile.WriteStretchedImage(grn, percentile.first, percentile.last, new int[0], "src/image/ImgCutOff.png");
+        percentile.WriteStretchedImage(green
+                                        , percentile.first
+                                        , percentile.last
+                                        , new int[0]
+                                        , "src/image/ImgCutOff.png");
         
         int[] stretchedHist = percentile.stretchMap(percentile.first, percentile.last);
-        percentile.WriteStretchedImage(grn, percentile.first, percentile.last, stretchedHist
-                                       , sOutput);        
+        
+        percentile.WriteStretchedImage(green
+                                        , percentile.first
+                                        , percentile.last
+                                        , stretchedHist
+                                        , sOutput);        
         
         /*-------------------- Statistics ------------------------*/
         Statistics stat1 = new Statistics(sOutput);
